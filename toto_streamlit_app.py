@@ -445,24 +445,6 @@ with tabs[2]:
                         st.info("Install reportlab to enable PDF export: pip install reportlab")
 
 
-#                         if REPORTLAB_AVAILABLE:
-#                         pdf_bytes = io.BytesIO()
-#                         c = canvas.Canvas(pdf_bytes, pagesize=letter)
-#                         text = c.beginText(40, 700)
-#                         text.setFont("Helvetica", 14)
-#                         text.textLine("Toto Prediction — LSTM")
-#                         text.textLine(f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-#                         text.textLine("")
-#                         text.textLine("Predicted numbers (6 main + additional):")
-#                         text.textLine(', '.join(map(str, list(top7_idx))))
-#                         c.drawText(text)
-#                         c.showPage()
-#                         c.save()
-#                         pdf_bytes.seek(0)
-#                         st.download_button("Download prediction as PDF", data=pdf_bytes, file_name="toto_prediction.pdf", mime='application/pdf')
-#                     else:
-#                         st.info("Install reportlab to enable PDF export: pip install reportlab")
-
                     # ---------------- Last 10 Draws & Comparison ----------------
                     st.markdown("### Last 10 Draws — Reference & Comparison")
 #                     last10 = df.tail(10).reset_index(drop=True)
@@ -496,8 +478,4 @@ with tabs[2]:
                     st.table(pd.DataFrame(comparison_table))
 
 
-# In[ ]:
-
-
-# !streamlit run toto_streamlit_app.py
 
