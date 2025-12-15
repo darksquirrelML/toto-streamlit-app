@@ -74,7 +74,7 @@ with st.sidebar:
 
 # ---------- Load / refresh data ----------
 #def load_data(csv_path="toto_history_all.csv"):
-def load_data(csv_path="data/toto_history_all.csv"):
+def load_data(csv_path="../toto_history_all.csv"):
 
     if not os.path.exists(csv_path):
         return None
