@@ -75,17 +75,12 @@ with st.sidebar:
 # ---------- Load / refresh data ----------
 #def load_data(csv_path="toto_history_all.csv"):
 
-import streamlit as st
-import pandas as pd
-import os
-
+# --- Load data function ---
 def load_data(csv_path="data/toto_history_all.csv"):
     """
     Load TOTO historical data from CSV.
-
-    - Reads the CSV from `data/` folder in the repo (for Streamlit Cloud).
-    - If the CSV is missing, allows optional manual upload.
-    - Returns a pandas DataFrame with processed columns.
+    - Reads CSV from repo 'data/' folder.
+    - Returns processed DataFrame.
     """
     if os.path.exists(csv_path):
         try:
@@ -94,24 +89,42 @@ def load_data(csv_path="data/toto_history_all.csv"):
             st.error(f"Error reading CSV: {e}")
             return pd.DataFrame()
     else:
-        uploaded_file = st.file_uploader("Upload CSV manually (not found in repo)", type="csv")
-        if uploaded_file:
-            try:
-                df = pd.read_csv(uploaded_file)
-            except Exception as e:
-                st.error(f"Error reading uploaded CSV: {e}")
-                return pd.DataFrame()
-        else:
-            st.warning("CSV file not found. Please upload a file or check repo data folder.")
-            return pd.DataFrame()
+        return pd.DataFrame()  # Return empty if CSV missing
 
-    # --- Existing processing ---
+    # --- Process columns ---
     df.columns = [c.strip() for c in df.columns]
     df['Winning'] = df['Winning No'].apply(lambda x: [int(i) for i in str(x).split(',')])
     df['Additional No'] = df['Additional No'].apply(lambda x: int(x) if pd.notna(x) else None)
     df = df.iloc[::-1].reset_index(drop=True)  # Reverse: oldest → newest
-
     return df
+
+# --- Load into session_state ---
+if 'df' not in st.session_state or st.button("Refresh Data"):
+    st.session_state['df'] = load_data()
+
+df = st.session_state.get('df')
+
+# --- Check for empty DataFrame ---
+if df is None or df.empty:
+    uploaded = st.file_uploader("Upload CSV now", type=['csv'])
+    if uploaded:
+        try:
+            df = pd.read_csv(uploaded)
+            df.columns = [c.strip() for c in df.columns]
+            df['Winning'] = df['Winning No'].apply(lambda x: [int(i) for i in str(x).split(',')])
+            df['Additional No'] = df['Additional No'].apply(lambda x: int(x) if pd.notna(x) else None)
+            df = df.iloc[::-1].reset_index(drop=True)
+            st.session_state['df'] = df
+        except Exception as e:
+            st.error(f"Error reading uploaded CSV: {e}")
+            st.stop()
+    else:
+        st.warning("CSV file not found. Please upload a file or check repo data folder.")
+        st.stop()
+
+# --- Safe to use df now ---
+st.write(f"**Dataset:** {len(df)} draws loaded — last draw date: {df.iloc[-1]['Draw Date']}")
+
 
 
 # def load_data(csv_path="data/toto_history_all.csv"):
