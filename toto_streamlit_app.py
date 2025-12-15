@@ -191,31 +191,34 @@ def frequency_dataframe(df, last_n):
 
 # ---------- Tabs ----------
 # tabs = st.tabs(["Trends", "Hot / Cold Numbers", "Machine Learning Prediction"])
-tabs = st.tabs(
+tab = st.radio(
+    "Navigation",
     ["Trends", "Hot / Cold Numbers", "Machine Learning Prediction"],
-    key="main_tabs"  # ← this preserves the selected tab across reruns
+    horizontal=True,
+    key="main_tab"
 )
 
+# # ---------------- Trends Tab ----------------
+# with tabs[0]:
+#     st.write("Trends content here")
+#     # your existing charts/tables
+
+# # ---------------- Hot / Cold Numbers Tab ----------------
+# with tabs[1]:
+#     st.write("Hot / Cold Numbers content here")
+#     # your existing charts/tables
+
+# # ---------------- Machine Learning Prediction Tab ----------------
+# with tabs[2]:
+#     st.write("Machine Learning / LSTM content here")
+#     # your existing ML controls
+#     if st.button("Train LSTM model", key="train_lstm"):
+#         st.write("Training started...")
+#         # your existing LSTM training code
+
 # ---------------- Trends Tab ----------------
-with tabs[0]:
-    st.write("Trends content here")
-    # your existing charts/tables
-
-# ---------------- Hot / Cold Numbers Tab ----------------
-with tabs[1]:
-    st.write("Hot / Cold Numbers content here")
-    # your existing charts/tables
-
-# ---------------- Machine Learning Prediction Tab ----------------
-with tabs[2]:
-    st.write("Machine Learning / LSTM content here")
-    # your existing ML controls
-    if st.button("Train LSTM model", key="train_lstm"):
-        st.write("Training started...")
-        # your existing LSTM training code
-
-# ---------------- Trends Tab ----------------
-with tabs[0]:
+# with tabs[0]:
+if tab == "Trends":
 ############################################################################################    
     
 
@@ -267,7 +270,8 @@ with tabs[0]:
         st.metric("Bottom 6 (least frequent)", ', '.join(map(str, bottom6)))
 
 # ---------------- Hot / Cold Tab ----------------
-with tabs[1]:
+# with tabs[1]:
+elif tab == "Hot / Cold Numbers":
     st.header("Hot and Cold Numbers")
     window = st.slider("Hot/Cold window (recent draws)", min_value=10, max_value=500, value=100, step=10)
     recent_df = df.tail(window)
@@ -293,7 +297,8 @@ with tabs[1]:
 import time
 import numpy as np
 
-with tabs[2]:
+# with tabs[2]:
+elif tab == "Machine Learning Prediction":
     st.header("Machine Learning Prediction — LSTM (7 numbers)")
     st.markdown("Train an LSTM on 7-number draws (6 main + 1 additional). Progress bar + ETA shown during training and prediction.")
 
