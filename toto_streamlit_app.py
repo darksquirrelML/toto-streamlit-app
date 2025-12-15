@@ -72,6 +72,18 @@ with st.sidebar:
     st.markdown("<small style='color:#8d99a6'>Tip: Put your historical CSV file named <code>toto_history_all.csv</code> in this app folder. The CSV must contain columns: Draw No, Draw Date, Winning No (comma-separated 6 numbers), Additional No.</small>", unsafe_allow_html=True)
     st.markdown("<small style='color:#8d99a6'>Click the 'Refresh Data' button to reload without affecting ML predictions.</small>", unsafe_allow_html=True)
 
+# --- Disclaimer at the top ---
+st.markdown(
+    """
+    <div style="background-color:#fff3cd; padding:15px; border-left:6px solid #ffc107; border-radius:5px">
+    ⚠️ **Disclaimer:** This TOTO app is for **fun and entertainment only**.  
+    The predictions or information provided are **not guaranteed**.  
+    We are **not responsible** for any decisions or outcomes based on this app.
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
 # ---------- Load / refresh data ----------
 #def load_data(csv_path="toto_history_all.csv"):
 
