@@ -361,7 +361,7 @@ with tabs[2]:
                     st.success("Model loaded")
 
             # ---- Train LSTM ----
-            if st.button("Train LSTM model"):
+            if st.button("Train LSTM model", key="train_lstm"):
                 tf.random.set_seed(int(seed_in))
                 model = build_model(window_in)
                 total_epochs = int(epochs_in)
