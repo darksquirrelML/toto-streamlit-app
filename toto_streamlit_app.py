@@ -1,13 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[ ]:
-
-
-# !pip install --upgrade reportlab
-
-
-# In[ ]:
 
 
 # Toto Prediction Dashboard — Dark Theme, 7-number support, click-to-refresh
