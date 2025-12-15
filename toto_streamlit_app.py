@@ -200,23 +200,7 @@ tab = st.radio(
     key="main_tab"
 )
 
-# # ---------------- Trends Tab ----------------
-# with tabs[0]:
-#     st.write("Trends content here")
-#     # your existing charts/tables
 
-# # ---------------- Hot / Cold Numbers Tab ----------------
-# with tabs[1]:
-#     st.write("Hot / Cold Numbers content here")
-#     # your existing charts/tables
-
-# # ---------------- Machine Learning Prediction Tab ----------------
-# with tabs[2]:
-#     st.write("Machine Learning / LSTM content here")
-#     # your existing ML controls
-#     if st.button("Train LSTM model", key="train_lstm"):
-#         st.write("Training started...")
-#         # your existing LSTM training code
 
 # ---------------- Trends Tab ----------------
 # with tabs[0]:
