@@ -289,11 +289,6 @@ with tabs[1]:
         st.subheader("Cold Numbers (least overall)")
         st.write(cold)
 
-
-
-
-
-# ---------------- Machine Learning Tab ----------------
 # ---------------- Machine Learning Tab ----------------
 import time
 import numpy as np
