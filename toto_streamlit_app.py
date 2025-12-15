@@ -74,18 +74,58 @@ with st.sidebar:
 
 # ---------- Load / refresh data ----------
 #def load_data(csv_path="toto_history_all.csv"):
-def load_data(csv_path="data/toto_history_all.csv"):
 
-    if not os.path.exists(csv_path):
-        return None
-    df = pd.read_csv(csv_path)
+import streamlit as st
+import pandas as pd
+import os
+
+def load_data(csv_path="data/toto_history_all.csv"):
+    """
+    Load TOTO historical data from CSV.
+
+    - Reads the CSV from `data/` folder in the repo (for Streamlit Cloud).
+    - If the CSV is missing, allows optional manual upload.
+    - Returns a pandas DataFrame with processed columns.
+    """
+    if os.path.exists(csv_path):
+        try:
+            df = pd.read_csv(csv_path)
+        except Exception as e:
+            st.error(f"Error reading CSV: {e}")
+            return pd.DataFrame()
+    else:
+        uploaded_file = st.file_uploader("Upload CSV manually (not found in repo)", type="csv")
+        if uploaded_file:
+            try:
+                df = pd.read_csv(uploaded_file)
+            except Exception as e:
+                st.error(f"Error reading uploaded CSV: {e}")
+                return pd.DataFrame()
+        else:
+            st.warning("CSV file not found. Please upload a file or check repo data folder.")
+            return pd.DataFrame()
+
+    # --- Existing processing ---
     df.columns = [c.strip() for c in df.columns]
-    # parse Winning and Additional numbers
     df['Winning'] = df['Winning No'].apply(lambda x: [int(i) for i in str(x).split(',')])
     df['Additional No'] = df['Additional No'].apply(lambda x: int(x) if pd.notna(x) else None)
-    # Reverse: oldest → newest
-    df = df.iloc[::-1].reset_index(drop=True)
+    df = df.iloc[::-1].reset_index(drop=True)  # Reverse: oldest → newest
+
     return df
+
+
+# def load_data(csv_path="data/toto_history_all.csv"):
+
+#     if not os.path.exists(csv_path):
+#         return None
+#     df = pd.read_csv(csv_path)
+#     df.columns = [c.strip() for c in df.columns]
+#     # parse Winning and Additional numbers
+#     df['Winning'] = df['Winning No'].apply(lambda x: [int(i) for i in str(x).split(',')])
+#     df['Additional No'] = df['Additional No'].apply(lambda x: int(x) if pd.notna(x) else None)
+#     # Reverse: oldest → newest
+#     df = df.iloc[::-1].reset_index(drop=True)
+#     return df
 
 if 'df' not in st.session_state or st.button("Refresh Data"):
     st.session_state['df'] = load_data()
