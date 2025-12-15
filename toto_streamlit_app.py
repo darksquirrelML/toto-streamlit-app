@@ -8,6 +8,8 @@ import plotly.express as px
 import io
 import os
 from datetime import datetime
+import time
+
 
 # --- Optional ML libs ---
 try:
@@ -294,8 +296,7 @@ elif tab == "Hot / Cold Numbers":
         st.write(cold)
 
 # ---------------- Machine Learning Tab ----------------
-import time
-import numpy as np
+
 
 # with tabs[2]:
 elif tab == "Machine Learning Prediction":
