@@ -73,6 +73,13 @@ with st.sidebar:
     st.markdown("---")
     st.markdown("<small style='color:#8d99a6'>Tip: Put your historical CSV file named <code>toto_history_all.csv</code> in this app folder. The CSV must contain columns: Draw No, Draw Date, Winning No (comma-separated 6 numbers), Additional No.</small>", unsafe_allow_html=True)
     st.markdown("<small style='color:#8d99a6'>Click the 'Refresh Data' button to reload without affecting ML predictions.</small>", unsafe_allow_html=True)
+#################################################################################
+    mc_samples = st.number_input(
+        "MC prediction passes",
+        min_value=1,
+        max_value=200,
+        value=20
+    )
 
 # --- Disclaimer at the top ---
 st.markdown(
