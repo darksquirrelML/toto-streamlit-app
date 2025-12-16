@@ -10,6 +10,16 @@ import os
 from datetime import datetime
 import time
 
+###############################################################
+# ---------------------------
+# Session state init (TOP)
+# ---------------------------
+if "lstm_model" not in st.session_state:
+    st.session_state.lstm_model = None
+
+if "model_trained" not in st.session_state:
+    st.session_state.model_trained = False
+#################################################################
 
 # --- Optional ML libs ---
 try:
@@ -374,11 +384,18 @@ elif tab == "Machine Learning Prediction":
                 window_in = int(window_size)
                 seed_in = int(seed)
 
-                # tf.random.set_seed(int(seed_in))
+                tf.random.set_seed(int(seed_in))
+
                 # model = build_model(window_in)
                 # total_epochs = int(epochs_in)
                 # batchsz = int(batch_in)
                 # val_split = 1.0 - float(train_ratio_in)
+
+                # CREATE MODEL ONLY IF NOT EXISTS
+                if st.session_state.lstm_model is None:
+                st.session_state.lstm_model = build_model(window_in)
+
+                model = st.session_state.lstm_model  # ✅ always use session model
 
                 progress = st.progress(0)
                 status = st.empty()
