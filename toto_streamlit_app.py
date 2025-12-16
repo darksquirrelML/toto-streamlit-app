@@ -555,5 +555,5 @@ elif tab == "Machine Learning Prediction":
                         })
                     st.table(pd.DataFrame(comparison_table))
 
-
+pass
 
