@@ -393,7 +393,7 @@ elif tab == "Machine Learning Prediction":
 
                 # CREATE MODEL ONLY IF NOT EXISTS
                 if st.session_state.lstm_model is None:
-                st.session_state.lstm_model = build_model(window_in)
+                    st.session_state.lstm_model = build_model(window_in)
 
                 model = st.session_state.lstm_model  # ✅ always use session model
 
