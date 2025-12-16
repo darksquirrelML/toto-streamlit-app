@@ -292,6 +292,12 @@ elif tab == "Machine Learning Prediction":
     st.write(f"Window size: {window_size}")
     st.write(f"Train ratio: {train_ratio}")
 
+    window_in = window_size
+    epochs_in = train_epochs
+    batch_in = batch_size
+    train_ratio_in = train_ratio
+    seed_in = seed
+
 # elif tab == "Machine Learning Prediction":
 #     st.header("Machine Learning Prediction — LSTM (7 numbers)")
 #     st.markdown("Train an LSTM on 7-number draws (6 main + 1 additional). Progress bar + ETA shown during training and prediction.")
@@ -300,17 +306,17 @@ elif tab == "Machine Learning Prediction":
         st.warning("TensorFlow is not installed. Install it (`pip install tensorflow`) to use LSTM features.")
     else:
         # --- ML Controls ---
-        cols = st.columns([1,1,1,1])
-        with cols[0]:
-            batch_in = st.number_input("Batch size", min_value=8, max_value=512, value=batch_size, key="ml_batch")
-        with cols[1]:
-            train_ratio_in = st.slider("Train ratio", 0.5, 0.95, value=train_ratio, key="ml_train_ratio")
-        with cols[2]:
-            epochs_in = st.number_input("Epochs", min_value=1, max_value=600, value=train_epochs, key="ml_epochs")
-        with cols[3]:
-            window_in = st.number_input("Window size", min_value=1, max_value=30, value=window_size, key="ml_window")
-        seed_in = st.number_input("Random seed", value=seed, key="ml_seed")
-        mc_samples = st.number_input("MC passes for prediction", min_value=1, max_value=200, value=20, key="ml_mc")
+        # cols = st.columns([1,1,1,1])
+        # with cols[0]:
+        #     batch_in = st.number_input("Batch size", min_value=8, max_value=512, value=batch_size, key="ml_batch")
+        # with cols[1]:
+        #     train_ratio_in = st.slider("Train ratio", 0.5, 0.95, value=train_ratio, key="ml_train_ratio")
+        # with cols[2]:
+        #     epochs_in = st.number_input("Epochs", min_value=1, max_value=600, value=train_epochs, key="ml_epochs")
+        # with cols[3]:
+        #     window_in = st.number_input("Window size", min_value=1, max_value=30, value=window_size, key="ml_window")
+        # seed_in = st.number_input("Random seed", value=seed, key="ml_seed")
+        # mc_samples = st.number_input("MC passes for prediction", min_value=1, max_value=200, value=20, key="ml_mc")
 
         # --- Helper function: convert draws to multihot encoding ---
         def draws_to_multihot(df_in):
